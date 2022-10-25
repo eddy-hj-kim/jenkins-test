@@ -1,1 +1,1 @@
-print('Hello Jenkins with M!')
+print('Hello Jenkins with Slack')

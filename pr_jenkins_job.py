@@ -190,9 +190,6 @@ class JobRunner:
     required=True,
 )
 def driver(apikey, project_id, job_name):  # sourcery skip: raise-specific-error
-    print(apikey)
-    print(project_id)
-    #print(job_name)
     jobrun = JobRunner(apikey, project_id)
     job_id = jobrun.retrieve_job_id(name=job_name)
     print(f" Job ID is -->{job_id}")

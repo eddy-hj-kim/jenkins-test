@@ -1,7 +1,11 @@
 """
-    INVOCATION FORMAT:
+__author__ == "Nijesh"
 
-    python pr_jenkins_job.py --apikey APIKEY -w --project_id PROJECT_ID --job_name NAME
+ Jenkisn PR Script Job Runner Client
+
+INVOCATION FORMAT:
+
+python pr_jenkins_job.py --apikey APIKEY -w --project_id PROJECT_ID --job_name NAME
 
 """
 
@@ -11,7 +15,6 @@ import time
 from dataclasses import dataclass
 from datetime import date
 from pprint import pprint
-from turtle import clear
 
 import click
 import requests
@@ -186,7 +189,7 @@ class JobRunner:
     help="Name of the Job to be run",
     required=True,
 )
-def driver(apikey, project_id, job_name):
+def driver(apikey, project_id, job_name):  # sourcery skip: raise-specific-error
     jobrun = JobRunner(apikey, project_id)
     job_id = jobrun.retrieve_job_id(name=job_name)
     print(f" Job ID is -->{job_id}")
@@ -207,6 +210,8 @@ def driver(apikey, project_id, job_name):
             state = result["entity"]["job_run"]["state"]
             if state == "Completed":
                 break
+            elif state == "Failed":
+                raise Exception("Job Run Failed")
             print(state)
             time.sleep(60)
     except Exception as e:

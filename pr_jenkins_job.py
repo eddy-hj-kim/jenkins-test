@@ -29,7 +29,7 @@ class JobRunner:
     api_key: str
     project_id: str
     URL: str = "https://api.dataplatform.cloud.ibm.com"
-    identity_url: str = "https://iam.cloud.ibm.com/identity/token/v1"
+    identity_url: str = "https://iam.cloud.ibm.com/identity/token"
 
     def create_access_token(self):
         headers = {

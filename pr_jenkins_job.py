@@ -3,9 +3,13 @@ __author__ == "Nijesh"
 
  Jenkisn PR Script Job Runner Client
 
+ The Script is used to test a dev orchestrated pipeline before accepting a pull request
+
 INVOCATION FORMAT:
 
 python pr_jenkins_job.py --apikey APIKEY -w --project_id PROJECT_ID --job_name NAME
+
+Job Name is Optional.
 
 """
 
@@ -185,11 +189,11 @@ class JobRunner:
 )
 @click.option(
     "--job_name",
-    prompt="Enter your Job name",
     help="Name of the Job to be run",
-    required=True,
+    default="Dev_Pipeline",
+    show_default=True,
 )
-def driver(apikey, project_id, job_name):  # sourcery skip: raise-specific-error
+def driver(apikey, project_id, job_name):
     jobrun = JobRunner(apikey, project_id)
     job_id = jobrun.retrieve_job_id(name=job_name)
     print(f" Job ID is -->{job_id}")
@@ -213,7 +217,7 @@ def driver(apikey, project_id, job_name):  # sourcery skip: raise-specific-error
             elif state == "Failed":
                 raise Exception("Job Run Failed")
             print(state)
-            time.sleep(60)
+            time.sleep(120)
     except Exception as e:
         print(e)
 

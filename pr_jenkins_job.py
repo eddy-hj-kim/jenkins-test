@@ -230,4 +230,5 @@ def driver(apikey, project_id, job_name):
 
 
 if __name__ == "__main__":
+    print('Script Executing...')
     driver()
